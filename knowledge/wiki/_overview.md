@@ -1,0 +1,15 @@
+# <Client> — knowledge overview
+
+> Template. The entry point to this client's rich knowledge layer. Mirrors the `cosi-knowledge` partition shape — when a client is promoted, their existing `cosi-knowledge/clients/<client>/` partition ejects into this `knowledge/` folder.
+
+## Who they are
+<one-paragraph orientation — sector, what we do for them, the relationship>
+
+## How we work with them
+<channels, cadence, what's worked, what hasn't>
+
+## Where things live
+- `wiki/` — curated per-channel / per-topic articles
+- `decisions/` — dated ADRs (brand & creative decisions, with the why)
+- `people/` — client-side + account people
+- `sources/` — pointers to raw sources (raw stays at source)
