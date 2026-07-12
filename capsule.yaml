@@ -1,0 +1,24 @@
+# Client Knowledge Capsule — manifest
+# Stamp a new client: copy this template, fill the <placeholders>, rename the repo to <client>.knowledge.
+# Schema: dotKnowledge SPEC.md §5 (github.com/inkxel/dotKnowledge) — this manifest is spec-conformant,
+# not a CoSi-local shape. See SPEC.md §2 for how type/relationship/parent compose, §6 for rises:.
+
+subject: <kebab-client-id>            # e.g. turbotax
+name: <Client Display Name>           # human-readable; additive field, not in the base spec
+type: brand                           # a client is always `brand` per SPEC §2 — relationship (below), not type, is what makes it a client
+relationship: client                  # client | in-house | employer | partner — orthogonal to type (§2)
+parent: cosi                          # the agency org this brand capsule nests under
+status: <active | shipped | archived> # subject lifecycle (§2.3) — set to a real value only when actually stamping; do not ship "active" by default in the template itself
+format_version: 0
+rises: de-identified                  # never | filtered | de-identified (§6) — see BOUNDARY.md for what this means in practice at CoSi.
+                                       # Note (2026-07-12): dotKnowledge's own filtered/de-identified distinction is
+                                       # still an open spec question — revisit this value if that vocabulary sharpens.
+access: protected                     # open | protected — protected means consult a whitelist; a client capsule defaults protected
+legal_signoff: false                  # MUST be true before any real client data is added — see BOUNDARY.md
+
+# CoSi-specific extension, additive to the base dotKnowledge manifest (§8: the format is designed to
+# be extended, not just conformed to) — which optional layers this capsule actually carries.
+contents:
+  knowledge: true                     # wiki, decisions, people, sources
+  brand: true                         # operable brand layer (design.md, voice.md, personas.md, tokens.json, motion.md)
+  skills: true                        # client-specific skills / specialists

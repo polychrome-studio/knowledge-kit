@@ -1,3 +1,12 @@
+---
+name: overview
+type: meta
+created: YYYY-MM-DD
+last_updated: YYYY-MM-DD
+confidence: high
+related: []
+---
+
 # <Client> — knowledge overview
 
 > Template. The entry point to this client's rich knowledge layer. Mirrors the `cosi-knowledge` partition shape — when a client is promoted, their existing `cosi-knowledge/clients/<client>/` partition ejects into this `knowledge/` folder.
