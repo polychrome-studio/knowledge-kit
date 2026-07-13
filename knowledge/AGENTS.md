@@ -6,15 +6,15 @@ This is the **canonical** agent-instructions file for this knowledge layer, per 
 
 ## What this knowledge layer is
 
-Unusual among CoSi repos: this `knowledge/` folder is not a build-log of developing the template — it **is** the schema being templated. `wiki/`, `decisions/`, `people/`, and `sources/` are the exact shape that gets copied whole into `<client>.knowledge/knowledge/` when a client capsule is stamped (per root `AGENTS.md`: "`knowledge/` follows the CoSi knowledge-layer pattern (wiki / decisions / people / sources), append-only with wiki-links"). Right now the four subfolders are empty placeholders (each holding only a `.gitkeep`, except `wiki/_overview.md`, which is itself a fill-in-the-blank template for the client's orientation page). Once a real client's capsule is stamped and an account team starts working it, this same folder — in the copy — fills up with real wiki articles, decision records, people entries, and source pointers, and the three rules below govern that accumulation.
+Unusual among CoSi repos: this `knowledge/` folder is not a build-log of developing the template — it **is** the schema being templated. `wiki/`, `decisions/`, `people/`, `sources/`, and `ledger/` are the exact shape that gets copied whole into `<client>.knowledge/knowledge/` when a client capsule is stamped. Right now the five subfolders are empty placeholders (each holding only a `.gitkeep`, except `wiki/_overview.md`, which is itself a fill-in-the-blank template for the client's orientation page). Once a real client's capsule is stamped and an account team starts working it, this same folder — in the copy — fills up with real wiki articles, decision records, people entries, source pointers, and ledger entries, and the three rules below govern that accumulation.
 
 ### The doc surfaces (don't confuse them)
 
-- **`knowledge/`** (this layer) — the capsule's rich-knowledge schema: curated wiki, brand/creative decision records, client + account people, pointers to raw sources. Empty here; populated once stamped for a real client.
+- **`knowledge/`** (this layer) — the capsule's rich-knowledge schema: curated wiki, brand/creative decision records, client + account people, pointers to raw sources, the agent-authored activity ledger. Empty here; populated once stamped for a real client.
 - **`README.md`** (repo root) — the plan: what a capsule is, the full structure, how to stamp a new client. Read for *why this template exists and how to use it*.
 - **`AGENTS.md`** (repo root) — how agents must behave *inside a stamped capsule*, principally the data boundary. A different concern from this file: that one is a data-handling contract binding on any capsule stamped from this template; this one is knowledge-layer orientation for working inside `knowledge/` specifically.
 - **`BOUNDARY.md`** — the line itself: what's allowed to leave a client's container (rises to `cosi-knowledge`) vs. what never leaves un-sanitized.
-- **`capsule.yaml`** — the manifest. dotKnowledge SPEC.md §5-conformant: `subject`/`type`/`relationship`/`parent`/`status`/`format_version`/`rises`/`access`/`legal_signoff`, plus a CoSi-specific `contents:` block on top (§8: the format is designed to be extended).
+- **`capsule.yaml`** — the manifest. dotKnowledge SPEC.md §5-conformant: `subject`/`type`/`relationship`/`parent`/`status`/`format_version`/`rises`/`access`/`local`/`legal_signoff`, plus a CoSi-specific `contents:` block on top (§8: the format is designed to be extended).
 - No external runtime source of truth — this is a template/spec repo, not a running system.
 
 ## How it's organized
@@ -27,9 +27,10 @@ knowledge/
   decisions/         dated ADRs — brand & creative decisions, with the why (currently .gitkeep only)
   people/            client-side + account people (currently .gitkeep only)
   sources/           pointers to raw sources; raw itself stays at source (currently .gitkeep only)
+  ledger/            append-only, agent-authored — what changed in this capsule and why, session by session (currently .gitkeep only)
 ```
 
-This schema swaps the usual `journal/` + `research/` pair for `people/` + `sources/` — a stamped capsule's session material is expected to flow from `sources/` (pointers to transcripts/meetings held elsewhere) into `wiki/`/`decisions/` at compile time, rather than through an interim journal folder. If that turns out to be the wrong call once a real client is stamped and actively worked, add `journal/` then — don't add it speculatively here.
+This schema swaps the usual `journal/` + `research/` pair for `people/` + `sources/` + `ledger/` — this is a `brand`-type bundle (relationship: client), not a `person` bundle, so per dotKnowledge SPEC §3 it carries no `journal/` at all: only a `person` bundle has a first-person voice. A stamped capsule's session material flows from `sources/` (pointers to transcripts/meetings held elsewhere) into `wiki/`/`decisions/` at compile time; `ledger/` is the separate, third-person, agent-authored activity log of what changed in the capsule and why — not a stand-in for a journal, a different voice entirely (SPEC §3).
 
 ## Claim provenance tags (optional, use sparingly)
 
@@ -43,21 +44,21 @@ Use these inline, only when the distinction matters for the reader.
 
 ## The three rules — no more
 
-### Rule 1 — Journal *continuously*, wiki at the end
+### Rule 1 — Ledger *continuously*, wiki at the end
 
-The journal is the firehose — write to it **as you go, not at session end.** Batching journal writes to the end loses information: you forget, you compress it away, or the session crashes and it's gone. The journal must survive a crash at any point.
+The ledger is the firehose — write to it **as you go, not at session end.** Batching ledger writes to the end loses information: you forget, you compress it away, or the session crashes and it's gone. The ledger must survive a crash at any point. This is agent/harness voice, not a person's — see SPEC §3 on why a `brand`-type capsule gets `ledger/`, never `journal/`.
 
-**Checkpoint cadence — append to today's `journal/YYYY-MM-DD-slug.md` after any of these, while fresh:**
+**Checkpoint cadence — append to today's `ledger/YYYY-MM-DD-slug.md` after any of these, while fresh:**
 - a larger move lands (a feature works, a subsystem changes, a milestone closes)
 - a longer code run completes (a big edit pass, a refactor, a tricky debug)
-- **right after each `git commit`** — the commit is the natural "larger move" marker; journal the *why* the commit message doesn't capture (a breadcrumb hook automates the prompt)
+- **right after each `git commit`** — the commit is the natural "larger move" marker; log the *why* the commit message doesn't capture (a breadcrumb hook automates the prompt)
 - before any risky/irreversible operation (so intent is recorded even if it goes wrong)
 
 A rough running entry beats a perfect one that never gets written. The entry is append-only — keep adding sections as the session progresses.
 
-**Wiki, by contrast, is end-of-session only.** At session end an **explicit compile pass** promotes mature journal entries into wiki updates (per Rule 2). Without an explicit trigger the wiki stays untouched — that keeps it intentional and the prompt cache stable. *Journal hot and often, compile to wiki cold and deliberately.*
+**Wiki, by contrast, is end-of-session only.** At session end an **explicit compile pass** promotes mature ledger entries into wiki updates (per Rule 2). Without an explicit trigger the wiki stays untouched — that keeps it intentional and the prompt cache stable. *Ledger hot and often, compile to wiki cold and deliberately.*
 
-For this template's schema (no `journal/` folder — see above), read this as: session material lands in `sources/` as it happens, and the same discipline applies at compile time — wiki/decisions only get written on a real trigger, not "just in case."
+Raw session material (transcripts, meeting notes) still lands in `sources/` as it happens — `sources/` and `ledger/` are both continuous, but different voices: `sources/` is raw intake, nobody's voice; `ledger/` is the agent's own account of what it did with that intake and why.
 
 ### Rule 2 — Wiki updates require a real trigger — only three
 1. A new subsystem/capability got added → write a new article or new section.
@@ -67,17 +68,17 @@ For this template's schema (no `journal/` folder — see above), read this as: s
 No "just in case" updates. No proactive rewrites of articles that aren't broken.
 
 ### Rule 3 — Append-only, wiki-links everywhere
-Wiki articles are append-only context logs with dated entries. Journal and decision entries are append-only. All cross-references use `[[wiki-links]]`. Never edit prior entries; if something is wrong, append a correction with a link to the contradicting source.
+Wiki articles are append-only context logs with dated entries. Ledger and decision entries are append-only. All cross-references use `[[wiki-links]]`. Never edit prior entries; if something is wrong, append a correction with a link to the contradicting source.
 
 ---
 
-## Journal entry format — ADR-flavored
+## Ledger entry format — ADR-flavored
 
-Each `journal/YYYY-MM-DD-slug.md`:
+Each `ledger/YYYY-MM-DD-slug.md`:
 
 ```markdown
 ---
-type: Journal                      # OKF-required concept type (keep it)
+type: Ledger                       # OKF-required concept type (keep it)
 date: YYYY-MM-DD
 session: short-slug
 status: in-progress | shipped | abandoned | superseded-by [[YYYY-MM-DD-slug]]
@@ -140,7 +141,7 @@ Options weighed *before* the decision and why each lost. If there were none, say
 "None — only viable path given X" so absence is explicit.
 
 ## Sources
-- [[journal/YYYY-MM-DD-slug]] — session where this surfaced
+- [[ledger/YYYY-MM-DD-slug]] — session where this surfaced
 ```
 
 **`basis:` and `status:` are different axes — do not conflate them.** A claim can be `authored` (a person stated it directly) and still be an unaffirmed `status: proposed` record. Confusing the two is the exact bug this split exists to prevent (dotKnowledge SPEC.md §4).
@@ -185,4 +186,10 @@ Audited against the real spec (github.com/inkxel/dotKnowledge) ahead of Tucker s
 - **`deciders: {{DECIDERS}}` replaced with a real pointer**, not a blank placeholder — capsule-approver identity is a known-open question (dotKnowledge SPEC.md §9, FOUNDRY's `2026-07-09-decision-record-affirmation.md`), and the answer must never be a hardcoded name. Left as an explicit note rather than inventing a resolution mechanism this template isn't positioned to own.
 - Fixed three `capsule.yaml → boundary.legal_signoff: true` references (README/AGENTS.md/BOUNDARY.md) to the flattened `capsule.yaml → legal_signoff: true` path, matching the rebuilt manifest.
 
-**Not fixed, flagged for Tucker:** the "Journal entry format" section above documents a `journal/YYYY-MM-DD-slug.md` format, but this template's own schema explicitly has no `journal/` folder (swapped for `people/`+`sources/`, per this file's own "How it's organized" section). That's a pre-existing internal inconsistency, not something introduced today — left as-is rather than guessing which side is stale.
+### 2026-07-13 — `ledger/` added; the journal-format inconsistency flagged 2026-07-12 is now resolved, not just fixed
+The 2026-07-12 entry above flagged a real inconsistency: this file documented a "Journal entry format" (`journal/YYYY-MM-DD-slug.md`) that the template's own schema didn't have a folder for. Rather than guess which side was stale, it turned out to be a real, general gap — dotKnowledge SPEC.md §3 now formally splits bundle temporal records three ways: `sources/` (raw intake, universal), `ledger/` (agent-authored activity log, universal), `journal/` (human first-person voice, **`person`-type bundles only**). A client capsule is `type: brand`, not `person` — it was never supposed to have a `journal/` at all; what it needed was `ledger/`, which didn't exist as a concept until this week.
+- Added `knowledge/ledger/` (`.gitkeep`, matching the other placeholder folders).
+- Renamed "Journal entry format" → "Ledger entry format" throughout this file; `journal/YYYY-MM-DD-slug.md` → `ledger/YYYY-MM-DD-slug.md`; `type: Journal` → `type: Ledger` in the frontmatter template.
+- Rule 1 reframed: same append-only, write-as-you-go discipline, but explicitly agent/harness voice (ledger), not a person's (journal) — `sources/` stays the separate, continuous raw-intake layer underneath it.
+- `capsule.yaml`: added `local: true` (SPEC §5 — cloneable/offline vs. mediated-runtime-only; `true` is the default for every client capsule). Resolved the `rises: de-identified` note that was pending a spec clarification — `filtered` (person bundles, opt-in) vs. `de-identified` (org/brand/project, mechanical anonymization) are now distinct by who consents; `de-identified` was already the correct value for a client capsule, not a placeholder.
+- `skills/README.md`: added the actual console-vs-capsule test (SPEC §3) — does the capability make sense independent of which subject's capsule is mounted (console-side, never here) or does it only exist because of this one client's own facts (capsule-resident, belongs here).

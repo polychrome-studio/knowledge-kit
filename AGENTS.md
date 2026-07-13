@@ -10,6 +10,6 @@ A self-contained `.knowledge` capsule for ONE client: their knowledge + operable
 
 ## Project-specific
 - **No real client data while this is the template.** Don't fill `knowledge/` or `brand/` with a real client until `capsule.yaml → legal_signoff: true`.
-- **Knowledge layer:** `knowledge/` follows the CoSi knowledge-layer pattern (wiki / decisions / people / sources), append-only with wiki-links.
+- **Knowledge layer:** `knowledge/` follows the CoSi knowledge-layer pattern (wiki / decisions / people / sources / ledger), append-only with wiki-links. No `journal/` — that's a `person`-bundle-only folder (dotKnowledge SPEC §3); a client capsule's agent-authored activity record is `ledger/`.
 - **Brand layer:** `brand/` (design.md, voice, personas, tokens, motion) is authored to the `brand-substrate` (BrandOS) schema.
 - **Portability:** a capsule should be hand-over-able and local-runnable — keep it self-contained; reference the shared brain, don't depend on it.

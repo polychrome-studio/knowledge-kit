@@ -23,16 +23,17 @@ It's self-contained, portable, and client-ownable. The agency's *shared* brain (
   README.md             what this capsule is (can be client-shareable)
   AGENTS.md             how agents work inside it (boundary rule is paramount)
   capsule.yaml          manifest — dotKnowledge SPEC.md §5: subject/type/relationship/parent/
-                          status/rises/access/legal_signoff, plus a CoSi-specific contents: block
+                          status/rises/access/local/legal_signoff, plus a CoSi-specific contents: block
   BOUNDARY.md           the line — what rises to the shared brain vs. what stays
   knowledge/            the rich knowledge layer
     wiki/               curated per-channel / per-topic articles
     decisions/          dated ADRs — brand & creative decisions, with the why
     people/             client-side + account people
     sources/            pointers to raw sources (raw itself stays at source)
+    ledger/             append-only, agent-authored — what changed in this capsule and why (no journal/ — that's person-bundles only, SPEC §3)
   brand/                the operable brand layer — schema'd by brand-substrate
     design.md  voice.md  personas.md  tokens.json  motion.md
-  skills/               client-specific skills / specialists built for them
+  skills/               client-specific skills / specialists — only capability that only makes sense because of this one client (SPEC §3); generic mechanism stays in the console
 ```
 
 ## The line — read [`BOUNDARY.md`](BOUNDARY.md)
