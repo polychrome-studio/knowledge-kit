@@ -1,6 +1,8 @@
-# Client Knowledge Template
+# knowledge-kit
 
-**The template + spec for a client knowledge capsule — one self-contained `.knowledge` package per client, holding their knowledge, their operable brand (`design.md`), the skills built for them, and their decision history.** Stamp a new client's capsule from this skeleton.
+**The template for a `.knowledge` capsule — one self-contained package per subject (client, in-house studio, or person), holding their knowledge, their operable brand (`design.md`), the skills built for them, and their decision history.** Stamp a new capsule from this skeleton. Renamed 2026-07-13 from `client-knowledge-template` — same template, no longer client-only in scope (see `tucker.knowledge`, `creative-systems-studio.knowledge` for non-client examples already stamped from it).
+
+> The *ongoing* work of stamping capsules, migrating content into them, and keeping them current lives in a separate, sibling repo: `Collier-Simon/knowledge-engine`. This repo defines *what a capsule looks like*; that one *runs* the process.
 
 > **"Capsule"** is the adopted term — a sealed, portable package, per the [dotKnowledge](https://github.com/inkxel/dotKnowledge) `.knowledge` standard this template conforms to (`capsule.yaml`, SPEC.md §5). Real capsules are named `<client>.knowledge` — e.g. `turbotax.knowledge`, `group1.knowledge`.
 >

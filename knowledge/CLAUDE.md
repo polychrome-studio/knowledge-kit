@@ -1,4 +1,4 @@
-# CLAUDE.md — Client Knowledge Template knowledge layer
+# CLAUDE.md — knowledge-kit's own knowledge layer
 
 This knowledge layer follows the cross-tool [AGENTS.md](https://agents.md) standard. The orientation — the three rules, the formats, where everything lives — is canonical in **[AGENTS.md](./AGENTS.md)** (this directory). Read that file.
 
