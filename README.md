@@ -28,9 +28,8 @@ It's self-contained, portable, and client-ownable. The agency's *shared* brain (
                           status/rises/access/local/legal_signoff, plus a CoSi-specific contents: block
   BOUNDARY.md           the line — what rises to the shared brain vs. what stays
   knowledge/            the rich knowledge layer
-    wiki/               curated per-channel / per-topic articles
+    wiki/               curated per-channel / per-topic / per-project / per-person articles (type: person for people — no separate people/ folder, see AGENTS.md)
     decisions/          dated ADRs — brand & creative decisions, with the why
-    people/             client-side + account people
     sources/            pointers to raw sources (raw itself stays at source)
     ledger/             append-only, agent-authored — what changed in this capsule and why (no journal/ — that's person-bundles only, SPEC §3)
   brand/                the operable brand layer — schema'd by brand-substrate

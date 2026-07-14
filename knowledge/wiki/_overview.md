@@ -18,7 +18,6 @@ related: []
 <channels, cadence, what's worked, what hasn't>
 
 ## Where things live
-- `wiki/` — curated per-channel / per-topic articles
+- `wiki/` — curated per-channel / per-topic / per-project / per-person articles (`type: person` for people — no separate `people/` folder)
 - `decisions/` — dated ADRs (brand & creative decisions, with the why)
-- `people/` — client-side + account people
 - `sources/` — pointers to raw sources (raw stays at source)

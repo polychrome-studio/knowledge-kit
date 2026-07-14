@@ -6,11 +6,13 @@ This is the **canonical** agent-instructions file for this knowledge layer, per 
 
 ## What this knowledge layer is
 
-Unusual among CoSi repos: this `knowledge/` folder is not a build-log of developing the template — it **is** the schema being templated. `wiki/`, `decisions/`, `people/`, `sources/`, and `ledger/` are the exact shape that gets copied whole into `<client>.knowledge/knowledge/` when a client capsule is stamped. Right now the five subfolders are empty placeholders (each holding only a `.gitkeep`, except `wiki/_overview.md`, which is itself a fill-in-the-blank template for the client's orientation page). Once a real client's capsule is stamped and an account team starts working it, this same folder — in the copy — fills up with real wiki articles, decision records, people entries, source pointers, and ledger entries, and the three rules below govern that accumulation.
+Unusual among CoSi repos: this `knowledge/` folder is not a build-log of developing the template — it **is** the schema being templated. `wiki/`, `decisions/`, `sources/`, and `ledger/` are the exact shape that gets copied whole into `<client>.knowledge/knowledge/` when a client capsule is stamped. Right now the four subfolders are empty placeholders (each holding only a `.gitkeep`, except `wiki/_overview.md`, which is itself a fill-in-the-blank template for the client's orientation page). Once a real client's capsule is stamped and an account team starts working it, this same folder — in the copy — fills up with real wiki articles, decision records, source pointers, and ledger entries, and the three rules below govern that accumulation.
+
+**No `people/` folder** — removed 2026-07-14. It was documented as "client-side + account people" but never once populated across any capsule actually built (lovable, klaviyo, cbr, jack-in-the-box, experian, the Intuit family) — people were always written as `wiki/` articles with `type: person` instead, and that convention already works, so the empty folder was dead weight, not a placeholder waiting to be used. See the context log below.
 
 ### The doc surfaces (don't confuse them)
 
-- **`knowledge/`** (this layer) — the capsule's rich-knowledge schema: curated wiki, brand/creative decision records, client + account people, pointers to raw sources, the agent-authored activity ledger. Empty here; populated once stamped for a real client.
+- **`knowledge/`** (this layer) — the capsule's rich-knowledge schema: curated wiki (including client + account people, as `type: person` articles), brand/creative decision records, pointers to raw sources, the agent-authored activity ledger. Empty here; populated once stamped for a real client.
 - **`README.md`** (repo root) — the plan: what a capsule is, the full structure, how to stamp a new client. Read for *why this template exists and how to use it*.
 - **`AGENTS.md`** (repo root) — how agents must behave *inside a stamped capsule*, principally the data boundary. A different concern from this file: that one is a data-handling contract binding on any capsule stamped from this template; this one is knowledge-layer orientation for working inside `knowledge/` specifically.
 - **`BOUNDARY.md`** — the line itself: what's allowed to leave a client's container (rises to `cosi-knowledge`) vs. what never leaves un-sanitized.
@@ -23,14 +25,13 @@ Unusual among CoSi repos: this `knowledge/` folder is not a build-log of develop
 knowledge/
   AGENTS.md          this file (canonical) — orientation, the three rules, the formats
   CLAUDE.md          thin pointer to AGENTS.md (so Claude Code discovers the layer)
-  wiki/              curated per-channel / per-topic articles — _overview.md is the fill-in template for the client's orientation page
+  wiki/              curated per-channel / per-topic / per-project / per-person articles — _overview.md is the fill-in template for the client's orientation page
   decisions/         dated ADRs — brand & creative decisions, with the why (currently .gitkeep only)
-  people/            client-side + account people (currently .gitkeep only)
   sources/           pointers to raw sources; raw itself stays at source (currently .gitkeep only)
   ledger/            append-only, agent-authored — what changed in this capsule and why, session by session (currently .gitkeep only)
 ```
 
-This schema swaps the usual `journal/` + `research/` pair for `people/` + `sources/` + `ledger/` — this is a `brand`-type bundle (relationship: client), not a `person` bundle, so per dotKnowledge SPEC §3 it carries no `journal/` at all: only a `person` bundle has a first-person voice. A stamped capsule's session material flows from `sources/` (pointers to transcripts/meetings held elsewhere) into `wiki/`/`decisions/` at compile time; `ledger/` is the separate, third-person, agent-authored activity log of what changed in the capsule and why — not a stand-in for a journal, a different voice entirely (SPEC §3).
+This schema swaps the usual `journal/` + `research/` pair for `sources/` + `ledger/` — this is a `brand`-type bundle (relationship: client), not a `person` bundle, so per dotKnowledge SPEC §3 it carries no `journal/` at all: only a `person` bundle has a first-person voice. A stamped capsule's session material flows from `sources/` (pointers to transcripts/meetings held elsewhere) into `wiki/`/`decisions/` at compile time; `ledger/` is the separate, third-person, agent-authored activity log of what changed in the capsule and why — not a stand-in for a journal, a different voice entirely (SPEC §3).
 
 ## Claim provenance tags (optional, use sparingly)
 
@@ -155,7 +156,7 @@ Options weighed *before* the decision and why each lost. If there were none, say
 ```yaml
 ---
 name: short-kebab-slug
-type: subsystem | topic | meta | roadmap
+type: person | project | workstream | topic | meta | roadmap
 created: YYYY-MM-DD
 last_updated: YYYY-MM-DD
 basis: authored | live-source | partner-attested | vendor-doc | forecast | computed | inferred   # optional — where the claim came from; SPEC.md §4
@@ -165,6 +166,12 @@ classification: public | internal | confidential | restricted   # sensitivity �
 related: [[other-article-1]], [[other-article-2]]
 ---
 ```
+
+**`type:` — the four content shapes, and why `project` and `workstream` are different (added 2026-07-14):**
+- **`person`** — a client-side or CoSi-side individual. Lives in `wiki/`, not a separate `people/` folder (see above).
+- **`project`** — a *bounded* creative engagement: a real start and stop for its development (a campaign, a specific build, a shoot). Small enough that its `sources:` list is the right unit to load wholesale when doing creative work on it — that's the entire point of the tag. If you can't name when this stopped being actively developed, it's probably not a `project`.
+- **`workstream`** — a *named container of multiple projects* running over an extended period (e.g., a product's ongoing campaign cadence spanning several seasons — each season's campaign is its own `project`; the umbrella name is the `workstream`). Do not tag a workstream as `project` — dumping years of accumulated raw material into context for "creative work" defeats the reason the tag exists. If an article covers more than one clearly separable creative engagement under one name, it's a `workstream`, and the individual engagements inside it deserve their own `project` articles if they're substantial enough to need one.
+- **`topic`** — everything else: general subsystem or reference content that's neither a person, a bounded project, nor a workstream container (a recurring production pattern, a tooling note, an ongoing unbounded relationship overview).
 
 **`confidence:`** — **high** (in code / ratified in a decision / repeatedly confirmed) · **medium** (said once, one source, not contradicted) · **low** (inference / single source, provisional) · **speculative** (extrapolation, revisit before acting). Add it when an article is touched for a real reason, not in a bulk pass.
 
@@ -193,3 +200,8 @@ The 2026-07-12 entry above flagged a real inconsistency: this file documented a 
 - Rule 1 reframed: same append-only, write-as-you-go discipline, but explicitly agent/harness voice (ledger), not a person's (journal) — `sources/` stays the separate, continuous raw-intake layer underneath it.
 - `capsule.yaml`: added `local: true` (SPEC §5 — cloneable/offline vs. mediated-runtime-only; `true` is the default for every client capsule). Resolved the `rises: de-identified` note that was pending a spec clarification — `filtered` (person bundles, opt-in) vs. `de-identified` (org/brand/project, mechanical anonymization) are now distinct by who consents; `de-identified` was already the correct value for a client capsule, not a placeholder.
 - `skills/README.md`: added the actual console-vs-capsule test (SPEC §3) — does the capability make sense independent of which subject's capsule is mounted (console-side, never here) or does it only exist because of this one client's own facts (capsule-resident, belongs here).
+
+### 2026-07-14 — Removed `people/`, added `type: project` / `type: workstream`
+Prompted by Tucker noticing lovable.knowledge had no dedicated projects section, and separately that `people/` sat empty while person articles (Felix Haas, Nad, Shay Chrystal) were already living in `wiki/` with `type: person`. Checked every capsule built this week — `people/` was empty in all of them, never once used. Removed it from the template; `type: person` in `wiki/` already does the job.
+
+For projects: no folder was ever missing — the gap was that nothing distinguished a bounded creative engagement from an ongoing relationship overview. Checked real examples before adding the tag: `lovable-platform.md` is a genuine bounded project; `qb-ies.md` (QuickBooks Intuit Enterprise Suite) is not — it's a container spanning 2024–2026 across multiple separate campaigns (the 2024 launch, November Release, AI Agents, Additional RTBs, Professional Services, the 2026 ERP campaign, the ERP Refresh), which is exactly the shape Tucker flagged as "a workstream, not a single project" in an unrelated conversation the same day. Added `type: workstream` alongside `type: project` rather than force everything workstream-shaped into the project tag — the tag only earns its keep if `project` reliably means "small enough to dump the whole `sources:` list into context for creative work," which a multi-year container is not.
