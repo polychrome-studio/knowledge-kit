@@ -1,26 +1,23 @@
-# Client Knowledge Capsule — manifest
-# Stamp a new client: copy this template, fill the <placeholders>, rename the repo to <client>.knowledge.
-# Schema: dotKnowledge SPEC.md §5 (github.com/inkxel/dotKnowledge) — this manifest is spec-conformant,
-# not a CoSi-local shape. See SPEC.md §2 for how type/relationship/parent compose, §6 for rises:.
+# Knowledge Capsule — manifest
+# Stamp a new subject: copy this template, fill the <placeholders>, rename the repo to <subject>.knowledge.
+# Schema: dotKnowledge SPEC.md §5 (github.com/polychrome-studio/dotKnowledge).
 
-subject: <kebab-client-id>            # e.g. turbotax
-name: <Client Display Name>           # human-readable; additive field, not in the base spec
-type: brand                           # a client is always `brand` per SPEC §2 — relationship (below), not type, is what makes it a client
-relationship: client                  # client | in-house | employer | partner — orthogonal to type (§2)
-parent: cosi                          # the agency org this brand capsule nests under
-status: <active | shipped | archived> # subject lifecycle (§2.3) — set to a real value only when actually stamping; do not ship "active" by default in the template itself
+subject: <kebab-subject-id>           # e.g. tucker, a-client-name
+name: <Subject Display Name>          # human-readable; additive field, not in the base spec
+type: <person | brand>                # person for yourself, brand for a client/company — see SPEC §2
+relationship: <self | client | employer | partner>   # orthogonal to type (§2)
+parent: <optional>                    # only set if this subject nests under another (e.g. a project under a client)
+status: <active | shipped | archived> # subject lifecycle (§2.3) — set to a real value only when actually stamping
 format_version: 0
-rises: de-identified                  # never | filtered | de-identified (§6) — see BOUNDARY.md for what this means in practice at CoSi.
-                                       # Resolved 2026-07-13: filtered (person bundles, opt-in consent) vs de-identified
-                                       # (org/brand/project, mechanical anonymization) are now distinct by *who consents* —
-                                       # de-identified is the correct value here, not a placeholder pending clarification.
-access: protected                     # open | protected — protected means consult a whitelist; a client capsule defaults protected
-local: true                           # true | false (§5) — cloneable/offline-capable vs. mediated-runtime-only; true is the default for every client capsule
-legal_signoff: false                  # MUST be true before any real client data is added — see BOUNDARY.md
+rises: none                           # never | filtered | de-identified | none (§6) — see SCOPE.md.
+                                       # `none` is the right default for a solo studio with no shared cross-subject layer yet.
+access: open                          # open | protected (§5) — protected if this subject's material needs restricted access
+local: true                           # true | false (§5) — cloneable/offline-capable vs. mediated-runtime-only
+legal_signoff: false                  # set true before real data goes in, if a formal agreement matters for this subject
 
-# CoSi-specific extension, additive to the base dotKnowledge manifest (§8: the format is designed to
+# Optional extension, additive to the base dotKnowledge manifest (§8: the format is designed to
 # be extended, not just conformed to) — which optional layers this capsule actually carries.
 contents:
-  knowledge: true                     # wiki, decisions, people, sources, ledger
-  brand: true                         # operable brand layer (design.md, voice.md, personas.md, tokens.json, motion.md)
-  skills: true                        # client-specific skills / specialists — subject-specific capability only (SPEC §3); generic operating mechanism stays in the console, never here
+  knowledge: true                     # wiki, decisions, sources, ledger
+  brand: true                         # operable brand layer (design.md, voice.md, personas.md, tokens.json, motion.md) — omit for a person capsule
+  skills: true                        # subject-specific skills — subject-specific capability only (SPEC §3); generic operating mechanism stays in the harness, never here
