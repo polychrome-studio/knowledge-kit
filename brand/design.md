@@ -6,7 +6,7 @@
 <usage, clearspace, don'ts>
 
 ## Color
-<tokens — see `tokens.json`. Name the canonical brand colors, e.g. "brand blue = Pantone XXXX / #XXXXXX". This is identifying client data — it stays in the capsule.>
+<tokens — see `tokens.json`. Name the canonical brand colors, e.g. "brand blue = Pantone XXXX / #XXXXXX". This is identifying client data — it stays in the bundle.>
 
 ## Typography
 <typefaces, weights, hierarchy, web/print fallbacks>

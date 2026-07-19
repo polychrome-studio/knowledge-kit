@@ -1,4 +1,4 @@
-# Knowledge Capsule — manifest
+# Knowledge Bundle — manifest
 # Stamp a new subject: copy this template, fill the <placeholders>, rename the repo to <subject>.knowledge.
 # Schema: dotKnowledge SPEC.md §5 (github.com/polychrome-studio/dotKnowledge).
 
@@ -20,8 +20,8 @@ local: true                           # true | false (§5) — cloneable/offline
 legal_signoff: false                  # set true before real data goes in, if a formal agreement matters for this subject
 
 # Optional extension, additive to the base dotKnowledge manifest (§8: the format is designed to
-# be extended, not just conformed to) — which optional layers this capsule actually carries.
+# be extended, not just conformed to) — which optional layers this bundle actually carries.
 contents:
   knowledge: true                     # wiki, decisions, sources, ledger
-  brand: true                         # operable brand layer (design.md, voice.md, personas.md, tokens.json, motion.md) — omit for a person capsule
+  brand: true                         # operable brand layer (design.md, voice.md, personas.md, tokens.json, motion.md) — omit for a person bundle
   skills: true                        # subject-specific skills — subject-specific capability only (SPEC §3); generic operating mechanism stays in the harness, never here

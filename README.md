@@ -1,12 +1,12 @@
 # knowledge-kit
 
-**The template for a `.knowledge` capsule — one self-contained package per subject (yourself, a client/brand, or a project), holding their knowledge, their operable brand (`brand-kit`), the skills built for them, and their decision history.** Stamp a new capsule from this skeleton.
+**The template for a `.knowledge` bundle — one self-contained package per subject (yourself, a client/brand, or a project), holding their knowledge, their operable brand (`brand-kit`), the skills built for them, and their decision history.** Stamp a new bundle from this skeleton.
 
-> **"Capsule"** is the adopted term — a sealed, portable package, per the [dotKnowledge](https://github.com/polychrome-studio/dotKnowledge) `.knowledge` standard this template conforms to (`capsule.yaml`, SPEC.md §5).
+> **"Bundle"** is the adopted term — a sealed, portable package, per the [dotKnowledge](https://github.com/polychrome-studio/dotKnowledge) `.knowledge` standard this template conforms to (`bundle.yaml`, SPEC.md §5).
 >
 > **Status:** structure and spec only. No real data lives here — this is the empty shape, agreed on before stamping anything real. See [`SCOPE.md`](SCOPE.md) for the three subject types and what stays where.
 
-## What a capsule is
+## What a bundle is
 
 A subject's whole "game" in one sealed package:
 
@@ -20,9 +20,9 @@ It's self-contained, portable, and ownable by whoever the subject is.
 
 ```
 <subject>.knowledge/
-  README.md             what this capsule is (can be shared with the subject, if it's a client)
+  README.md             what this bundle is (can be shared with the subject, if it's a client)
   AGENTS.md              how agents work inside it — the scope rule is paramount
-  capsule.yaml           manifest — dotKnowledge SPEC.md §5: subject/type/relationship/parent/
+  bundle.yaml           manifest — dotKnowledge SPEC.md §5: subject/type/relationship/parent/
                           status/rises/access/local/legal_signoff
   SCOPE.md                the line — self vs. client/brand vs. project, and what stays where
   knowledge/             the rich knowledge layer — wiki, decisions, sources, ledger
@@ -35,4 +35,4 @@ It's self-contained, portable, and ownable by whoever the subject is.
 - [dotKnowledge](https://github.com/polychrome-studio/dotKnowledge) — the format this template conforms to
 - [brand-kit](https://github.com/polychrome-studio/brand-kit) — what goes inside `brand/`
 - [skills-kit](https://github.com/polychrome-studio/skills-kit) — how a skill in `skills/` is addressed
-- [foundry](https://github.com/polychrome-studio/foundry) — a harness that mounts a stamped capsule
+- [foundry](https://github.com/polychrome-studio/foundry) — a harness that mounts a stamped bundle

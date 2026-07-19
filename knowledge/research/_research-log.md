@@ -7,7 +7,7 @@ last_updated: TEMPLATE
 
 # {SUBJECT} — research freshness log
 
-Tracks when each component of the standing **client-intelligence layer** was last refreshed, so the capsule's knowledge never goes silently stale. This log ships in **every** capsule (stamped from knowledge-kit). Doctrine + rationale: FOUNDRY `knowledge/plans/2026-07-17-standing-client-intelligence-refresh.md`. Update "last run" + "next due" on every refresh, and log what *changed* since last time (the delta is the point, not just fresh data).
+Tracks when each component of the standing **client-intelligence layer** was last refreshed, so the bundle's knowledge never goes silently stale. This log ships in **every** bundle (stamped from knowledge-kit). Doctrine + rationale: FOUNDRY `knowledge/plans/2026-07-17-standing-client-intelligence-refresh.md`. Update "last run" + "next due" on every refresh, and log what *changed* since last time (the delta is the point, not just fresh data).
 
 | Component | Source / tool | Last run | Cadence | Next due | Artifact / notes |
 |---|---|---|---|---|---|

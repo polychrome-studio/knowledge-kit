@@ -1,22 +1,22 @@
 # knowledge-kit — Knowledge Layer (AGENTS.md)
 
-> **What knowledge-kit is.** The template for a `.knowledge` capsule — a self-contained `<subject>.knowledge` package holding one subject's knowledge, their operable brand (`design.md`, when applicable), the skills built for them, and their decision history. Not client-only — person, brand, and project capsules all stamp from it. **Status: Phase 0 — structure and spec only.** No real data lives here; this is the empty shape agreed on before stamping any capsule. See the root [`README.md`](../README.md) for the full model and [`SCOPE.md`](../SCOPE.md) for the self/client/project scope rule.
+> **What knowledge-kit is.** The template for a `.knowledge` bundle — a self-contained `<subject>.knowledge` package holding one subject's knowledge, their operable brand (`design.md`, when applicable), the skills built for them, and their decision history. Not client-only — person, brand, and project bundles all stamp from it. **Status: Phase 0 — structure and spec only.** No real data lives here; this is the empty shape agreed on before stamping any bundle. See the root [`README.md`](../README.md) for the full model and [`SCOPE.md`](../SCOPE.md) for the self/client/project scope rule.
 
-This is the **canonical** agent-instructions file for this knowledge layer, per the cross-tool [AGENTS.md](https://agents.md) standard — any agent (Claude Code, Cursor, Codex, …) reads it. The sibling `knowledge/CLAUDE.md` is a thin pointer back here; keep the orientation in this file, not duplicated there. Read this before touching `knowledge/` — whether you're improving the template's own spec, or about to stamp a new client's capsule from it.
+This is the **canonical** agent-instructions file for this knowledge layer, per the cross-tool [AGENTS.md](https://agents.md) standard — any agent (Claude Code, Cursor, Codex, …) reads it. The sibling `knowledge/CLAUDE.md` is a thin pointer back here; keep the orientation in this file, not duplicated there. Read this before touching `knowledge/` — whether you're improving the template's own spec, or about to stamp a new client's bundle from it.
 
 ## What this knowledge layer is
 
-Unusual among CoSi repos: this `knowledge/` folder is not a build-log of developing the template — it **is** the schema being templated. `wiki/`, `decisions/`, `sources/`, and `ledger/` are the exact shape that gets copied whole into `<client>.knowledge/knowledge/` when a client capsule is stamped. Right now the four subfolders are empty placeholders (each holding only a `.gitkeep`, except `wiki/_overview.md`, which is itself a fill-in-the-blank template for the client's orientation page). Once a real client's capsule is stamped and an account team starts working it, this same folder — in the copy — fills up with real wiki articles, decision records, source pointers, and ledger entries, and the three rules below govern that accumulation.
+Unusual among CoSi repos: this `knowledge/` folder is not a build-log of developing the template — it **is** the schema being templated. `wiki/`, `decisions/`, `sources/`, and `ledger/` are the exact shape that gets copied whole into `<client>.knowledge/knowledge/` when a client bundle is stamped. Right now the four subfolders are empty placeholders (each holding only a `.gitkeep`, except `wiki/_overview.md`, which is itself a fill-in-the-blank template for the client's orientation page). Once a real client's bundle is stamped and an account team starts working it, this same folder — in the copy — fills up with real wiki articles, decision records, source pointers, and ledger entries, and the three rules below govern that accumulation.
 
-**No `people/` folder** — removed 2026-07-14. It was documented as "client-side + account people" but never once populated across any capsule actually built — people were always written as `wiki/` articles with `type: person` instead, and that convention already works, so the empty folder was dead weight, not a placeholder waiting to be used. See the context log below.
+**No `people/` folder** — removed 2026-07-14. It was documented as "client-side + account people" but never once populated across any bundle actually built — people were always written as `wiki/` articles with `type: person` instead, and that convention already works, so the empty folder was dead weight, not a placeholder waiting to be used. See the context log below.
 
 ### The doc surfaces (don't confuse them)
 
-- **`knowledge/`** (this layer) — the capsule's rich-knowledge schema: curated wiki (including client + account people, as `type: person` articles), brand/creative decision records, pointers to raw sources, the agent-authored activity ledger. Empty here; populated once stamped for a real client.
-- **`README.md`** (repo root) — the plan: what a capsule is, the full structure, how to stamp a new client. Read for *why this template exists and how to use it*.
-- **`AGENTS.md`** (repo root) — how agents must behave *inside a stamped capsule*, principally the data boundary. A different concern from this file: that one is a data-handling contract binding on any capsule stamped from this template; this one is knowledge-layer orientation for working inside `knowledge/` specifically.
+- **`knowledge/`** (this layer) — the bundle's rich-knowledge schema: curated wiki (including client + account people, as `type: person` articles), brand/creative decision records, pointers to raw sources, the agent-authored activity ledger. Empty here; populated once stamped for a real client.
+- **`README.md`** (repo root) — the plan: what a bundle is, the full structure, how to stamp a new client. Read for *why this template exists and how to use it*.
+- **`AGENTS.md`** (repo root) — how agents must behave *inside a stamped bundle*, principally the data boundary. A different concern from this file: that one is a data-handling contract binding on any bundle stamped from this template; this one is knowledge-layer orientation for working inside `knowledge/` specifically.
 - **`SCOPE.md`** — the line itself: self vs. client/brand vs. project, and what stays where.
-- **`capsule.yaml`** — the manifest. dotKnowledge SPEC.md §5-conformant: `subject`/`type`/`relationship`/`parent`/`status`/`format_version`/`rises`/`access`/`local`/`legal_signoff`, plus an optional `contents:` extension block on top (§8: the format is designed to be extended).
+- **`bundle.yaml`** — the manifest. dotKnowledge SPEC.md §5-conformant: `subject`/`type`/`relationship`/`parent`/`status`/`format_version`/`rises`/`access`/`local`/`legal_signoff`, plus an optional `contents:` extension block on top (§8: the format is designed to be extended).
 - No external runtime source of truth — this is a template/spec repo, not a running system.
 
 ## How it's organized
@@ -28,10 +28,10 @@ knowledge/
   wiki/              curated per-channel / per-topic / per-project / per-person articles — _overview.md is the fill-in template for the client's orientation page
   decisions/         dated ADRs — brand & creative decisions, with the why (currently .gitkeep only)
   sources/           pointers to raw sources; raw itself stays at source (currently .gitkeep only)
-  ledger/            append-only, agent-authored — what changed in this capsule and why, session by session (currently .gitkeep only)
+  ledger/            append-only, agent-authored — what changed in this bundle and why, session by session (currently .gitkeep only)
 ```
 
-This schema swaps the usual `journal/` + `research/` pair for `sources/` + `ledger/` — this is a `brand`-type bundle (relationship: client), not a `person` bundle, so per dotKnowledge SPEC §3 it carries no `journal/` at all: only a `person` bundle has a first-person voice. A stamped capsule's session material flows from `sources/` (pointers to transcripts/meetings held elsewhere) into `wiki/`/`decisions/` at compile time; `ledger/` is the separate, third-person, agent-authored activity log of what changed in the capsule and why — not a stand-in for a journal, a different voice entirely (SPEC §3).
+This schema swaps the usual `journal/` + `research/` pair for `sources/` + `ledger/` — this is a `brand`-type bundle (relationship: client), not a `person` bundle, so per dotKnowledge SPEC §3 it carries no `journal/` at all: only a `person` bundle has a first-person voice. A stamped bundle's session material flows from `sources/` (pointers to transcripts/meetings held elsewhere) into `wiki/`/`decisions/` at compile time; `ledger/` is the separate, third-person, agent-authored activity log of what changed in the bundle and why — not a stand-in for a journal, a different voice entirely (SPEC §3).
 
 ## Claim provenance tags (optional, use sparingly)
 
@@ -47,7 +47,7 @@ Use these inline, only when the distinction matters for the reader.
 
 ### Rule 1 — Ledger *continuously*, wiki at the end
 
-The ledger is the firehose — write to it **as you go, not at session end.** Batching ledger writes to the end loses information: you forget, you compress it away, or the session crashes and it's gone. The ledger must survive a crash at any point. This is agent/harness voice, not a person's — see SPEC §3 on why a `brand`-type capsule gets `ledger/`, never `journal/`.
+The ledger is the firehose — write to it **as you go, not at session end.** Batching ledger writes to the end loses information: you forget, you compress it away, or the session crashes and it's gone. The ledger must survive a crash at any point. This is agent/harness voice, not a person's — see SPEC §3 on why a `brand`-type bundle gets `ledger/`, never `journal/`.
 
 **Checkpoint cadence — append to today's `ledger/YYYY-MM-DD-slug.md` after any of these, while fresh:**
 - a larger move lands (a feature works, a subsystem changes, a milestone closes)
@@ -147,9 +147,9 @@ Options weighed *before* the decision and why each lost. If there were none, say
 
 **`basis:` and `status:` are different axes — do not conflate them.** A claim can be `authored` (a person stated it directly) and still be an unaffirmed `status: proposed` record. Confusing the two is the exact bug this split exists to prevent (dotKnowledge SPEC.md §4).
 
-**Automated writers may only ever write `status: proposed`.** Moving a record to `accepted`, `superseded`, or `deprecated` requires an append-only affirmation event (who, role, evidence, when) — never an in-place edit of this field. This capsule doesn't yet have its own affirmation tooling; until it does, treat any `status:` above `proposed` written by an agent as a bug, not a shortcut.
+**Automated writers may only ever write `status: proposed`.** Moving a record to `accepted`, `superseded`, or `deprecated` requires an append-only affirmation event (who, role, evidence, when) — never an in-place edit of this field. This bundle doesn't yet have its own affirmation tooling; until it does, treat any `status:` above `proposed` written by an agent as a bug, not a shortcut.
 
-**`deciders:` — do not hardcode a name.** Who is authorized to affirm a decision *in this specific capsule* must resolve to a live role (e.g. "whoever currently owns this subject"), never a name baked into the file — a hardcoded name goes stale the moment that changes hands. This is a real, currently-open question — see dotKnowledge SPEC.md §9 ("Capsule-approver identity") and FOUNDRY's `knowledge/specs/2026-07-09-decision-record-affirmation.md` for the fuller framing. Resolving it is the mounting platform's job, not this template's — until it's resolved, leave `deciders:` naming a role description in prose, not a person.
+**`deciders:` — do not hardcode a name.** Who is authorized to affirm a decision *in this specific bundle* must resolve to a live role (e.g. "whoever currently owns this subject"), never a name baked into the file — a hardcoded name goes stale the moment that changes hands. This is a real, currently-open question — see dotKnowledge SPEC.md §9 ("Bundle-approver identity") and FOUNDRY's `knowledge/specs/2026-07-09-decision-record-affirmation.md` for the fuller framing. Resolving it is the mounting platform's job, not this template's — until it's resolved, leave `deciders:` naming a role description in prose, not a person.
 
 ## Wiki article frontmatter convention
 
@@ -175,7 +175,7 @@ related: [[other-article-1]], [[other-article-2]]
 
 **`confidence:`** — **high** (in code / ratified in a decision / repeatedly confirmed) · **medium** (said once, one source, not contradicted) · **low** (inference / single source, provisional) · **speculative** (extrapolation, revisit before acting). Add it when an article is touched for a real reason, not in a bulk pass.
 
-**`basis:`, `score:`, and `classification:` are optional and additive** (dotKnowledge SPEC.md §4) — add them when they carry real signal, not as a bulk backfill. `basis:` and `status:` (decisions only, see below) are different axes — a claim can be `authored` and still unaffirmed; don't conflate "where it came from" with "has a human signed off on it." `classification:` matters most here: a brand/client capsule holds identifying data by design, so tagging anything genuinely sensitive `confidential`/`restricted` is what lets `rises:` (`SCOPE.md`, `capsule.yaml`) actually be enforced rather than just declared.
+**`basis:`, `score:`, and `classification:` are optional and additive** (dotKnowledge SPEC.md §4) — add them when they carry real signal, not as a bulk backfill. `basis:` and `status:` (decisions only, see below) are different axes — a claim can be `authored` and still unaffirmed; don't conflate "where it came from" with "has a human signed off on it." `classification:` matters most here: a brand/client bundle holds identifying data by design, so tagging anything genuinely sensitive `confidential`/`restricted` is what lets `rises:` (`SCOPE.md`, `bundle.yaml`) actually be enforced rather than just declared.
 
 ---
 
