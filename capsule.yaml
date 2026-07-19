@@ -4,8 +4,12 @@
 
 subject: <kebab-subject-id>           # e.g. tucker, a-client-name
 name: <Subject Display Name>          # human-readable; additive field, not in the base spec
-type: <person | brand>                # person for yourself, brand for a client/company — see SPEC §2
-relationship: <self | client | employer | partner>   # orthogonal to type (§2)
+type: <person | org | brand | project> # dotKnowledge's four subject types (SPEC §2) — project nests under
+                                       # whatever it's part of and freezes at ship; the other three are canonical.
+relationship: <self | client>         # orthogonal to type (§2). For Polychrome: self = your own tucker.knowledge,
+                                       # client = everyone/everything else — see SCOPE.md. dotKnowledge's base spec
+                                       # also allows in-house/employer/partner if a relationship ever needs a finer
+                                       # distinction than that; not needed for the common case here.
 parent: <optional>                    # only set if this subject nests under another (e.g. a project under a client)
 status: <active | shipped | archived> # subject lifecycle (§2.3) — set to a real value only when actually stamping
 format_version: 0
