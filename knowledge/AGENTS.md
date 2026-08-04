@@ -4,6 +4,35 @@
 
 This is the **canonical** agent-instructions file for this knowledge layer, per the cross-tool [AGENTS.md](https://agents.md) standard — any agent (Claude Code, Cursor, Codex, …) reads it. The sibling `knowledge/CLAUDE.md` is a thin pointer back here; keep the orientation in this file, not duplicated there. Read this before touching `knowledge/` — whether you're improving the template's own spec, or about to stamp a new client's bundle from it.
 
+## How to read this bundle
+
+*If you are here to READ, this section is all you need. It works offline — the
+full protocol is [dotKnowledge SPEC.md §10](https://github.com/polychrome-studio/dotKnowledge/blob/main/SPEC.md),
+cited for depth, never required to fetch.*
+
+1. **`README.md`** — what is actually in this bundle, right now.
+2. **`bundle.yaml`** → `type:` — it decides how to read everything else.
+3. **`knowledge/_index/master.md`** — every article, one line each. Choose from here.
+4. **Fetch only what you chose.** Don't read the bundle exhaustively; don't answer from the index alone.
+
+**Authority depends on `type:`.** A `person` bundle is first-person residue — what
+that subject believes and has lived, never what is objectively true about anyone
+else. An `org`/`brand`/`project` bundle is canonical about its own subject and
+nothing else. When the two disagree, both readings stand; the gap is the signal.
+
+**What is not evidence.** `stm/` is epistemically inert — ambient only, never
+cited, and **never read as status**: a note there saying work is unfinished is
+not evidence that it is. Check the artifact. `wiki/` is derived — trace a claim
+through its `sources:` before relying on it, and treat `last_compiled:` older
+than 30 days as suspect. `sources/` is raw evidence, nobody's position.
+`ledger/` records what an agent did, not what is true.
+
+**Reading is not writing.** Write access is governed by `access:`, `rises:`, and
+`legal_signoff:` — not by having managed to open the file. If you reached this
+bundle through a general-purpose transport (a git host API, an MCP connector),
+assume read-only: those transports hand out write capability alongside read,
+while the guarantees above are usually enforced by a harness you are not running.
+
 ## What this knowledge layer is
 
 Unusual for a `knowledge/` folder: this one is not a build-log of developing the template — it **is** the schema being templated. `wiki/`, `decisions/`, `sources/`, and `ledger/` are the exact shape that gets copied whole into `<client>.knowledge/knowledge/` when a client bundle is stamped. Right now the four subfolders are empty placeholders (each holding only a `.gitkeep`, except `wiki/_overview.md`, which is itself a fill-in-the-blank template for the client's orientation page). Once a real client's bundle is stamped and an account team starts working it, this same folder — in the copy — fills up with real wiki articles, decision records, source pointers, and ledger entries, and the three rules below govern that accumulation.
