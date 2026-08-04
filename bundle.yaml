@@ -2,11 +2,11 @@
 # Stamp a new subject: copy this template, fill the <placeholders>, rename the repo to <subject>.knowledge.
 # Schema: dotKnowledge SPEC.md §5 (github.com/polychrome-studio/dotKnowledge).
 
-subject: <kebab-subject-id>           # e.g. tucker, a-client-name
+subject: <kebab-subject-id>           # e.g. your-name, a-client-name
 name: <Subject Display Name>          # human-readable; additive field, not in the base spec
 type: <person | org | brand | project> # dotKnowledge's four subject types (SPEC §2) — project nests under
                                        # whatever it's part of and freezes at ship; the other three are canonical.
-relationship: <self | client>         # orthogonal to type (§2). For Polychrome: self = your own tucker.knowledge,
+relationship: <self | client>         # orthogonal to type (§2). self = your own person bundle,
                                        # client = everyone/everything else — see SCOPE.md. dotKnowledge's base spec
                                        # also allows in-house/employer/partner if a relationship ever needs a finer
                                        # distinction than that; not needed for the common case here.
