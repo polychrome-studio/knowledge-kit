@@ -234,3 +234,44 @@ The 2026-07-12 entry above flagged a real inconsistency: this file documented a 
 Prompted by noticing one capsule had no dedicated projects section, and separately that `people/` sat empty while person articles were already living in `wiki/` with `type: person`. Checked every capsule built so far — `people/` was empty in all of them, never once used. Removed it from the template; `type: person` in `wiki/` already does the job.
 
 For projects: no folder was ever missing — the gap was that nothing distinguished a bounded creative engagement from an ongoing relationship overview. Checked real examples before adding the tag: a single bounded platform build is a genuine `project`; a multi-year enterprise campaign container spanning several separate, individually-named campaigns across multiple years is not — it's exactly the shape that motivated `workstream` as a distinct tag. Added `type: workstream` alongside `type: project` rather than force everything workstream-shaped into the project tag — the tag only earns its keep if `project` reliably means "small enough to dump the whole `sources:` list into context for creative work," which a multi-year container is not.
+
+## Attribution — soften names by default
+
+**Record what was established, not who said it — unless the person *is* the fact.**
+
+```
+BEFORE   "Meredith said Chime moved Q3 budget to Meta and TikTok."
+AFTER    "Chime moved Q3 budget to Meta and TikTok.  (chime, 2026-08-10)"
+```
+
+Everywhere else, the source is **the account plus the date**, not a name.
+
+**Attribution is retained where the person is the claim:**
+- org charts and reporting lines
+- role and ownership claims — "X owns Y", "X is the approver for Y"
+- decision records (a decision has a decider; that is what makes it a decision)
+- approvals and sign-off, including `legal_signoff`
+- first-party self-report — someone stating their own role or name
+
+**Why, and it is not carelessness.** Four misattributions in one week, all in content that had
+already been curated: "Dylan" resolved three different ways by three passes, "Jen Powell" an ASR
+artifact for Jen Pao, Kathleen/Cathleen corrected *backwards*, Scott/Steve Riddick still open. The
+cause is recording speaker attribution at a precision the source material does not support — a Slack
+line, a diarised transcript, a deck slide and a bare inference all become "X said Y" with identical
+confidence, and retrieval then presents the name with the same weight as the fact.
+
+**You cannot misattribute what you did not record.**
+
+**Rejected, so do not reach for them:** confidence tiers on person-claims — a wrong name carrying a
+`second-hand` tag is still a wrong name in the prompt, and it adds metadata to maintain at exactly
+the point we have shown we maintain it worst. And source-side fixes such as ASR diarisation, which
+address meetings and do nothing for Slack, decks or inference — three of the four.
+
+**Do not bulk-rewrite existing articles.** This applies going forward, and when an article is next
+touched for another reason. A sweep would destroy the first-party resolutions — Jen Pao, Dillon
+Wilensky — that were expensive to obtain and are the highest-confidence person records we hold.
+
+Decision record: `knowledge/decisions/2026-08-17-soften-names-by-default.md` in cosi-platform. This
+is the companion to the full-name standard above, not a replacement: **full names whenever a name is
+recorded at all, and fewer names recorded.**
+
