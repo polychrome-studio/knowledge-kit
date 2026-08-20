@@ -15,6 +15,7 @@ Tracks when each component of the standing **client-intelligence layer** was las
 | Creative — TikTok ad library | Apify (TikTok actor) | — | monthly | — | |
 | Creative — Google Ads Transparency | browser/web | — | monthly | — | `ad-creative-firstlook.md` |
 | Creative — video ads, frame-by-frame | `ffmpeg` contact sheets from ad-library CDN video URLs | — | monthly | — | **Static and video often run different messaging — a static-only pass sees half an account.** Ad-library scrapers usually return the video URL; download and sample rather than reading the poster frame. `ffmpeg -vf "fps=1.5,scale=200:-1,tile=6x5"` gives one readable sheet per ad, at zero API cost. |
+| Creative — video **audio / voiceover** | `ffmpeg` + local `whisper-cpp` | — | monthly | — | **Captions are not the argument.** Frame sampling recovers on-screen copy; the persuasive move is often voice-only. Transcribe and diff against the captions — the divergence is the finding. Local, free, no API key. |
 | Website intelligence | Firecrawl (own site) | — | quarterly | — | `website-intel.md` |
 | Positioning | web research | — | quarterly | — | `positioning.md` |
 | Reputation / social listening | web (reviews · Reddit · X) | — | monthly | — | `reputation.md` |
