@@ -19,5 +19,6 @@ Tracks when each component of the standing **client-intelligence layer** was las
 | Reputation / social listening | web (reviews · Reddit · X) | — | monthly | — | `reputation.md` |
 | Competitive set | web research | — | quarterly | — | `competitive-set.md` |
 | Competitor ad-libraries + sites (white-space) | Apify + Firecrawl | — | monthly | — | the white-space layer |
+| Slack — client + shared channels | Slack MCP / platform nightly ingest | — | monthly | — | **Match the client name ANYWHERE in the channel name, not as a prefix.** The client-shared Slack Connect channel is conventionally `ext-<client>-<agency>` — a prefix-anchored search misses the one channel the client actually talks in. Separators also vary (`_` and `-`). |
 
 **Cadence rationale:** creative + reputation move fast → monthly; positioning + website + competitive shift slower → quarterly. Bump any row to a faster cadence around a live pitch or campaign launch.
